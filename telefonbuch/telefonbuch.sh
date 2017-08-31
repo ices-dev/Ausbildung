@@ -11,13 +11,12 @@
 # Datum     : 31.08.2017
 
 # Variablen
-
-EING=0                                              # Quit
-VNAME=0                                             # (Vor)Name
-NUMM=0                                              # Telefonnummer
-ABBR="23"                                           # Zurück zum Menu
-SUCH=0
-LOSH=0
+EING=0                                                                          # Quit
+VNAME=0                                                                         # (Vor)Name
+NUMM=0                                                                          # Telefonnummer
+ABBR="23"                                                                       # Zurück zum Menu
+SUCH=0                                                                          # Suchvariable
+LOSH=0                                                                          # Löschvariable
 
 # Anzeigen
 function f_anzeigen {
@@ -25,7 +24,7 @@ function f_anzeigen {
         clear
         echo "Telefonbuchinhalt anzeigen"
         echo ""
-        cat telefon.buch|sort -f
+        cat telefon.buch|sort -f                                                # Anzeige Telefonbuch A-Z
         echo ""
         sleep 1
         echo "Drücken sie eine Taste"
@@ -41,7 +40,7 @@ function f_suchen {
         echo "Telefonbuchinhalt suchen"
         echo ""
         read -p "Suchkriterium? " SUCH
-        cat telefon.buch|grep -i "$SUCH"
+        cat telefon.buch|grep -i "$SUCH"                                        # Suche ignoriert Case
         echo ""
         sleep 1
         echo "Drücken sie eine Taste"
@@ -71,14 +70,14 @@ function f_loschen {
         echo "Telefonbuchinhalt löschen"
         echo ""
         read -p "Suchkriterium? " LOSH
-        cat telefon.buch|grep -i "$LOSH"
+        cat telefon.buch|grep -i "$LOSH"                                        # Suche ignoriert Case
         echo ""
         echo "Wollen Sie >>`cat telefon.buch|grep -i "$LOSH"`<< löschen? (j/n)"
         echo ""
         read -sn1 DELL
         if [[ $DELL == j ]];then
-            cat telefon.buch|grep -iv "$LOSH">telefon.neu
-            mv telefon.neu telefon.buch
+            cat telefon.buch|grep -iv "$LOSH">telefon.neu                       # Ergebnis der Suche wird invertiert
+            mv telefon.neu telefon.buch                                         # Telefon.buch aktualisieren
             echo "Erfolgreich gelöscht!"
         else
             echo "ABBRUCH!"
